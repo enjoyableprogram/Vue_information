@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>raw_code_count</title>
+</head>
+<body>
+<div id="app"></div>
+<button class="increment">+1</button>
+<button class="decrement">-1</button>
+
+<script>
+    // 开始实现使用我们的原生实现计数器
+    let count = 0
+    const increment = document.getElementsByClassName('increment')[0]
+    const decrement = document.getElementsByClassName('decrement')[0]
+    const app = document.getElementById('app')
+    app.textContent = count
+
+    // 开始实现我们的 +1 函数的书写
+    function Increment() {
+        count++
+        app.textContent = count
+    }
+
+    function Decrement() {
+        count--
+        app.textContent = count
+    }
+
+    // 开始添加事件
+    increment.addEventListener('click', Increment)
+    decrement.addEventListener('click', Decrement)
+</script>
+</body>
+</html>

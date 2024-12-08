@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>demo_count</title>
+</head>
+<body>
+<div id="app"></div>
+
+<script src="../vue_local/vue_lib/vue.js"></script>
+
+<script>
+    Vue.createApp({
+        template: `
+        <!-- 开始实现计数器案例 -->
+        <div> {{ count }} </div>
+        <button @click="count++">按钮+1</button>
+        <button @click="count--">按钮-1</button>
+        <button @click="increment">按钮+1方法</button>
+        <button @click="decrement">按钮-1方法</button>
+        `,
+
+        // 定义数据
+        data() {
+            return {
+                count: 0,
+            }
+        },
+
+        // 定义方法
+        // vue2 中可以通过 this 来实现获取我们定义的数据
+        methods: {
+            increment: function () {
+                this.count += 1
+            },
+            decrement: function () {
+                this.count -= 1
+            }
+        }
+    }).mount("#app")
+</script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue_CDN</title>
+</head>
+<body>
+<div id="app"></div>
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script>
+    // 导入了我们的 CDN 后，我们就可以实现使用提供给我们的 Vue 全局函数
+    // 实现创建一个组件
+    const app = Vue.createApp({
+        template: '<h2>Hello world<span> JuWenZhang</span></h2>',  // 创建模板
+    })
+    app.mount("#app")  // 将我们的组件进行挂载在指定的容器中
+</script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>demo_count_refactor</title>
+</head>
+<body>
+<div id="app">
+    <!-- 开始实现计数器案例 -->
+    <!-- 如果我们的组件中含有 template 的话，那么最后实现的是我们的渲染就是 template ,否则就是渲染我们在容器中书写的部分 -->
+    <div> {{ count }} </div>
+    <button @click="count++">按钮+1</button>
+    <button @click="count--">按钮-1</button>
+    <button @click="increment">按钮+1方法</button>
+    <button @click="decrement">按钮-1方法</button>
+</div>
+
+<script src="../vue_local/vue_lib/vue.js"></script>
+
+<script>
+    Vue.createApp({
+        // 定义数据
+        data() {
+            return {
+                count: 0,
+            }
+        },
+
+        // 定义方法
+        // vue2 中可以通过 this 来实现获取我们定义的数据
+        methods: {
+            increment: function () {
+                this.count += 1
+            },
+            decrement: function () {
+                this.count -= 1
+            }
+        }
+    }).mount("#app")
+</script>
+</body>
+</html>

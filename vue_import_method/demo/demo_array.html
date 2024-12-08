@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>demo_array</title>
+</head>
+<body>
+<div id="app"></div>
+
+<script src="../vue_local/vue_lib/vue.js"></script>
+
+<script>
+    Vue.createApp({
+        template: `
+        <!-- 开始实现使用我们的 v-for 来实现动态渲染我们的列表数据 -->
+        <div v-for="(item, index) in arr_data" key=index>
+          <div>{{ item }}-{{ index }}</div>
+        </div>
+        `,
+
+        data: function () {
+            return {
+                arr_data: ["JuWenZhang", "76433", "水逆信封"]
+            }
+        }
+    }).mount("#app")
+</script>
+</body>
+</html>
