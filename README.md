@@ -473,3 +473,257 @@ Middle[end] --> End[浏览器/小程序/Android/IOS/VR设备]
   }
 </script>
 ```
+
+#### v-model 指令(重要指令【必看】{数据双向绑定})
+> * 通过我们前面的学习中，我们了解到，如何通过我们的 JS 来动态的修改我们的数据，并且实现最终的响应
+> * 但是我们并没有实现将我们的页面中的数据进行修改，从而引发一些操作
+> * 这个时候我们就需要使用我们的 v-model 来实现数据的双向绑定了，常和我们的表单共同使用，共同达成某种功能
+> * 可以实现的是在我们的 **input textarea select checkbox radio** 元素上面创建我们的双向数据绑定
+> * 背后的本质的话就是使用的是
+>   * v-bind 来实现啊绑定属性值
+>   * v-on 来实现绑定 input 事件，获取最新的值
+> * v-model 还具备我们的值绑定
+> * 修饰符
+>   * 默认的 v-model 绑定的事件是我们的 input 事件
+>   * 但是通过我们的 .lazy 就可以实现具体的转换为 change 事件了
+>   * .number 实现的是自动将我们获取的值转换为数字
+>   * .trim 去除字符串首尾空格
+```vue
+<template>
+  <input type="text" v-model="message">
+  <div>{{ message }}</div>
+</template>
+
+<script lang="js">
+  export default {
+      data() {
+          return {
+              message: "juwenzhang"
+          }
+      }
+  }
+</script>
+```
+
+### computed option
+> * 对于我们对复杂的数据的处理方式，我们最开始使用的是使用的是我们的插值语法来实现的
+> * 但是这样的话实际上我们的一些语法就会变得十分臃肿了，为了解决这样的缺点，我们就可以使用
+> * 计算属性来实现我们的处理数据，然后进行渲染即可
+> * 解决这样的方法一共含有两种，
+>   * 一种是将相同的逻辑进行抽离，抽离到我们的方法中 methods 进行后续的渲染
+>   * 一种是将相同的逻辑进行抽离，抽离在我们的计算属性 computed 中进行后续的渲染
+>     * 对于我们对响应式数据进行的一些复杂逻辑处理，我们都应该使用计算属性来实现抽离
+>     * 计算属性相当于就是重新创建了新的具有响应式的数据出来，但是这样的数据来自于我们的原本在 data 中存在的值
+```vue
+<template>
+  <div>
+    <h2>{{ firstName }}-{{ lastName }}</h2>
+    
+    <!-- 开始通过我们抽离的方法来实现渲染数据: methods -->
+    <h2>{{ getFullName() }}</h2>
+    <h2>{{ getScoreLevel() }}</h2>
+    <h2>{{ getReverseStr() }}</h2>
+    
+    <!-- 开始实现通过我们的计算属性渲染我们的数据 -->
+    <h2>{{ fullName }}</h2>
+    <h2>{{ scoreLevel }}</h2>
+    <h2>{{ reverseStr }}</h2>
+  </div>
+</template>
+
+<script lang="js">
+  export default {
+      // 定义数据
+      data() {
+          return {
+              firstName: "76433",
+              lastName: "水逆信封",
+              score: 80,  // 根据不同的分数我们显示不同的字符串
+              message: "JuWenZhang' Github"  // 实现反转字符串实现显示
+          }
+      },
+      
+      // 定义方法
+      methods: {
+          getFullName: function () {
+              return this.firstName + "-" + this.lastName
+          },
+        
+          getScoreLevel: function () {
+              return this.score >= 60 ? "及格" : "不及格"
+          },
+        
+          getReverseStr: function () {
+              return this.message.split("").reverse().join()
+          }
+      },
+    
+      // 定义计算属性
+      computed: {
+          // 先实现命名我们的键，然后书写函数，函数内部的返回值就是键对应的值
+          fullName: function () {
+              return this.firstName + "  " + this.lastName
+          },
+        
+          scoreLevel: function () {
+              return this.score >= 60 ? "及格" : "不及格"
+          },
+        
+          reverseStr: function () {
+              return this.message.split("").reverse().join()
+          }
+      }
+  }
+</script>
+```
+
+#### 计算属性computed和方法methods之间的区别
+> * 计算属性 computed
+>   * **计算属性是具备缓存的**，所以说就会对我们的数据进行保存
+>   * 实际上的话，是通过创建了新的变量属性出来了的，所以说就会有缓存
+>   * **由于有这一个优点存在，所以说我们的计算属性尽管在我们的页面中多次使用，**
+>   * **但是最终还是只是一次**，这样就和我们原本在 data 中定义的数据并无差异
+> * 方法 methods
+>   * 每次的渲染模式实际上的话是通过调用函数来实现的，所以说就没有缓存
+>   * 所以说这个时候从一定的程度上来说的话，就会对性能（函数在栈空间调用）有一定的消耗
+>   * **通过我们的方法来进行渲染的话，我们的方法在页面中被使用了几次，那就是被调用了几次**
+
+
+#### 计算属性完整写法 get 和 set 
+> * 这里是不是很熟悉，就是我们**对对象中的属性进行属性描述符的添加的 getter 和 setter 函数**
+```vue
+<template>
+  
+  <template v-if="true">
+    <div>
+      <h2>{{ fullName }}</h2>
+    </div>
+  </template>
+  
+</template>
+
+<script lang="js">
+  export default {
+      // 开始定义响应式数据
+      date() {
+          return {
+              firstName: "juwenzhang",
+              lastName: "76433",
+              score: 88,
+              message: "hello front-end"
+          }
+      },
+    
+      // 开始定义计算属性(完整写法)
+      // 一般进行书写的时候，直接写简写即可，简写等价于只书写了我们的 get
+      computed: {
+          fullName: {
+              get: function () {
+                  return this.firstName + "  " + this.lastName
+              },
+              set: function (value) {
+                  const names = value.split("  ")
+                  this.firstName = names[0]
+                  this.lastName = names[1]
+              }
+          }
+      }
+  }
+</script>
+```
+
+### watch option
+> * 该选项是我们的侦听器，用来实现的是对我们的响应式数据的变化实现的一种监听，
+> * 同时该属性是自动调用的
+```vue
+<template>
+  
+  <template v-if="true">
+    <div>
+      <h2>{{ message }}</h2>
+    </div>
+  </template>
+  
+</template>
+
+<script lang="js">
+  import {toRaw} from "vue"
+  export default {
+      data() {
+          return {
+              message: "my name is juwenzhang",
+              message01: "my name is juwenzhang"
+          }
+      },
+    
+      watch: {
+          // 使用的是我们的键值对形式，键是我们的需要进行监听的属性书写
+          message: function () {
+              console.log("message 数据发生了变化~~~")
+          },
+          
+          // 可以传递两个参数，一个是我们新的value 值，一个是旧的value 值
+          message01: function (newValue, oldValue) {
+              // 该两个值获取到的是我们的 proxy
+              console.log(newValue, oldValue)
+              // 实现获取我们的原始对象方法一
+              console.log({...newValue}, {...oldValue})
+              // 获取原始对象方法二
+              console.log(toRaw(newValue), toRaw(oldValue))
+          }
+      }
+  }
+</script>
+```
+
+#### 侦听器的配置项
+> * 就是实现的是为我们的 watch 来实现的是我们的通过配置侦听器
+> * 从而实现更加高级的功能
+> * deep 深度监听
+> * immediate 立即监听
+```vue
+<template>
+  
+  <template v-if="true">
+    <div>
+      <h2 @click="changeInfo">{{ info.name }}</h2>
+    </div>
+  </template>
+  
+</template>
+
+<script lang="js">
+  import {toRaw} from "vue"
+  export default {
+      data() {
+          return {
+              info: { name: "76433", age: 18 }
+          }
+      },
+    
+      methods: {
+          changeInfo() {
+              this.info.name = "Juwenzhang"
+          }
+      },
+    
+      watch: {
+          // 我们的 watch 默认的不是深度监听，但是有些情况下我们希望对数据深度监听
+          // 这个时候我们就可以通过配置项来实现了
+          info: {
+              handler(newValue, oldValue) {
+                  console.log(toRaw(newValue), toRaw(oldValue))
+              },  // 监听捕获器
+              deep: true,  // 开启深度监听
+              immediate: true  // 一旦进入页面，首先就实现提前监听一次
+          }
+      }
+  }
+</script>
+```
+
+#### 同时还具有我们的 this.$watch 监听
+> * 含有三个参数
+>   * 第一个参数是我们的需要进行监听的属性
+>   * 第二个参数就是我们的handler 捕获回调处理函数
+>   * 第三个参数就是配置项
