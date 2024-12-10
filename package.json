@@ -1,0 +1,24 @@
+{
+  "name": "vue2",
+  "version": "1.0.0",
+  "description": "vue2 information",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juwenzhang/Vue_information.git"
+  },
+  "keywords": [
+    "vue2",
+    "vue",
+    "vue3"
+  ],
+  "author": "juwenzhang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/juwenzhang/Vue_information/issues"
+  },
+  "homepage": "https://github.com/juwenzhang/Vue_information#readme"
+}
