@@ -290,3 +290,8 @@
 > * **package-lock.json** 依赖版本管理锁定文件
 > * **README.md** 就是项目的描述文档
 > * **vue.config.js** 就是实现的是我们的webpack的配置，类似于我们的 webpack.config.js
+>   * **configureWebpack**  通过该字段就可以实现我们的自定义 webpack 规则
+
+#### 通过 vite 工具创建的项目结构剖析
+> ![vue02](./images/vue02.png)
+> 和上面同理
